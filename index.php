@@ -10,7 +10,7 @@
 	
     <button class="btn" data-clipboard-action="copy" data-clipboard-target="#foo">Copy</button>
 	
-	<button class="btn" data-clipboard-text="hi5">Copy to clipboard</button>
+	<button class="btn2" data-clipboard-text="hi5">Copy to clipboard</button>
     <script src="clipboard.min.js"></script>
     <script>
     var clipboard = new Clipboard('.btn');
@@ -20,6 +20,17 @@
     });
 
     clipboard.on('error', function(e) {
+        console.log(e);
+    });
+	
+	
+	var clipboard2 = new Clipboard('.btn2');
+
+    clipboard2.on('success', function(e) {
+        console.log(e);
+    });
+
+    clipboard2.on('error', function(e) {
         console.log(e);
     });
     </script>
