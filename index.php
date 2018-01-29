@@ -6,9 +6,9 @@
 </head>
 <body>
     <!-- 1. Define some markup -->
-	<div style="display:none">
+	
     <input id="foo" type="text" value="hello">
-	</div>
+	
     <button class="btn" data-clipboard-action="copy" data-clipboard-target="#foo">Copy</button>
 
     <!-- 2. Include library -->
