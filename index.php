@@ -1,35 +1,33 @@
 <script src="http://code.jquery.com/jquery-1.12.4.min.js"></script>
 <script>
-var copy = function(elementId) {
 
-	var input = document.getElementById(elementId);
-	var isiOSDevice = navigator.userAgent.match(/ipad|iphone/i);
-
-	if (isiOSDevice) {
-	  
-		var editable = input.contentEditable;
-		var readOnly = input.readOnly;
-
-		input.contentEditable = true;
-		input.readOnly = false;
-
-		var range = document.createRange();
-		range.selectNodeContents(input);
-
-		var selection = window.getSelection();
-		selection.removeAllRanges();
-		selection.addRange(range);
-
-		input.setSelectionRange(0, 999999);
-		input.contentEditable = editable;
-		input.readOnly = readOnly;
-
-	} else {
-	 	input.select();
-	}
-
-	document.execCommand('copy');
+function copyText(text){
+  function selectElementText(element) {
+    if (document.selection) {
+      var range = document.body.createTextRange();
+      range.moveToElementText(element);
+      range.select();
+    } else if (window.getSelection) {
+      var range = document.createRange();
+      range.selectNode(element);
+      window.getSelection().removeAllRanges();
+      window.getSelection().addRange(range);
+    }
+  }
+  var element = document.createElement('DIV');
+  element.textContent = text;
+  document.body.appendChild(element);
+  selectElementText(element);
+  document.execCommand('copy');
+  element.remove();
 }
+
+
+var txt = document.getElementById('txt');
+var btn = document.getElementById('btn');
+btn.addEventListener('click', function(){
+  copyText(txt.value);
+})
 </script>
-<input type="text" id="foo" value="text to copy" />
-<button onclick="copy('foo')">Copy text</button>
+<input id="txt" />
+<button id="btn">Copy To Clipboard</button>
