@@ -10,7 +10,7 @@
     <button class="btn" data-clipboard-action="copy" data-clipboard-target="#foo">Copy</button>
 
     <!-- 2. Include library -->
-    <script src="../dist/clipboard.min.js"></script>
+    <script src="clipboard.min.js"></script>
 
     <!-- 3. Instantiate clipboard -->
     <script>
