@@ -1,28 +1,35 @@
 <script src="http://code.jquery.com/jquery-1.12.4.min.js"></script>
 <script>
-var clipboard = new Clipboard('.copyUrl');
-               
-                $('.copyUrl').on('click',function() {
-                    var $input = $('#copyIos');
-                    $input.val(share_url);
-                    if (navigator.userAgent.match(/ipad|ipod|iphone/i)) {
-                        clipboard.on('success', function(e) {
-                            e.clearSelection();
-                            $.sDialog({
-                                skin: "red",
-                                content: 'copy success!',
-                                okBtn: false,
-                                cancelBtn: false,
-                                lock: true
-                            });
-                            console.log('copy success!');
-                        });
-                    } else {
-                        $input.select();
-                    }
-                    //document.execCommand('copy');
-                    $input.blur();
-                });
+var copy = function(elementId) {
+
+	var input = document.getElementById(elementId);
+	var isiOSDevice = navigator.userAgent.match(/ipad|iphone/i);
+
+	if (isiOSDevice) {
+	  
+		var editable = input.contentEditable;
+		var readOnly = input.readOnly;
+
+		input.contentEditable = true;
+		input.readOnly = false;
+
+		var range = document.createRange();
+		range.selectNodeContents(input);
+
+		var selection = window.getSelection();
+		selection.removeAllRanges();
+		selection.addRange(range);
+
+		input.setSelectionRange(0, 999999);
+		input.contentEditable = editable;
+		input.readOnly = readOnly;
+
+	} else {
+	 	input.select();
+	}
+
+	document.execCommand('copy');
+}
 </script>
-<input id="copyIos" type="hidden" value="">
-<a href="javascript" class="copyUrl">copy</a>
+<input type="text" id="foo" value="text to copy" />
+<button onclick="copy('foo')">Copy text</button>
