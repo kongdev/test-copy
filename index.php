@@ -1,6 +1,14 @@
-<script src="http://code.jquery.com/jquery-1.12.4.min.js"></script>
-<script>
 
+<script type="text/javascript" data-cfasync="false" src="https://pantip.com/js/version/1517216209/lastest_jquery.js"></script>
+
+
+<script>
+$(document).ready(function(){
+	$(document).on('click','#btn',function(){
+		console.log('12121212');
+		copyText($('#txt').val());
+	})
+});
 function copyText(text){
   function selectElementText(element) {
     if (document.selection) {
@@ -23,11 +31,7 @@ function copyText(text){
 }
 
 
-var txt = document.getElementById('txt');
-var btn = document.getElementById('btn');
-btn.addEventListener('click', function(){
-  copyText(txt.value);
-})
+
 </script>
 <input id="txt" />
 <button id="btn">Copy To Clipboard</button>
