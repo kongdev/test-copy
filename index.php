@@ -1,38 +1,50 @@
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>test - copy</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-</head>
-<body>
-   
-    <input id="foo" type="text" value="hello">
-	
-    <button class="btn" data-clipboard-action="copy" data-clipboard-target="#foo">Copy</button>
-	
-	<button class="btn2" data-clipboard-text="hi5">Copy to clipboard</button>
-    <script src="clipboard.min.js"></script>
-    <script>
-    var clipboard = new Clipboard('.btn');
+<script>
+window.Clipboard = (function(window, document, navigator) {
+    var textArea,
+        copy;
 
-    clipboard.on('success', function(e) {
-        console.log(e);
-    });
+    function isOS() {
+        return navigator.userAgent.match(/ipad|iphone/i);
+    }
 
-    clipboard.on('error', function(e) {
-        console.log(e);
-    });
-	
-	
-	var clipboard2 = new Clipboard('.btn2');
+    function createTextArea(text) {
+        textArea = document.createElement('textArea');
+        textArea.value = text;
+        document.body.appendChild(textArea);
+    }
 
-    clipboard2.on('success', function(e) {
-        console.log(e);
-    });
+    function selectText() {
+        var range,
+            selection;
 
-    clipboard2.on('error', function(e) {
-        console.log(e);
-    });
-    </script>
-</body>
-</html>
+        if (isOS()) {
+            range = document.createRange();
+            range.selectNodeContents(textArea);
+            selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            textArea.setSelectionRange(0, 999999);
+        } else {
+            textArea.select();
+        }
+    }
+
+    function copyToClipboard() {        
+        document.execCommand('copy');
+        document.body.removeChild(textArea);
+    }
+
+    copy = function(text) {
+        createTextArea(text);
+        selectText();
+        copyToClipboard();
+    };
+
+    return {
+        copy: copy
+    };
+})(window, document, navigator);
+
+
+Clipboard.copy('text to be copied');
+</script>
