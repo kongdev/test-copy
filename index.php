@@ -8,7 +8,7 @@ window.Clipboard = (function(window, document, navigator) {
     }
 
     function createTextArea(text) {
-        textArea = document.createElement('textArea');
+        textArea = document.createElement("textarea");
         textArea.value = text;
         document.body.appendChild(textArea);
     }
