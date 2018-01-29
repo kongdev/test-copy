@@ -6,7 +6,7 @@
 </head>
 <body>
     <!-- 1. Define some markup -->
-    <input id="foo" type="text" value="hello">
+    <input id="foo" type="hidden" value="hello">
     <button class="btn" data-clipboard-action="copy" data-clipboard-target="#foo">Copy</button>
 
     <!-- 2. Include library -->
